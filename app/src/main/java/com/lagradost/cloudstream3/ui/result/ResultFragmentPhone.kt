@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
@@ -81,6 +82,7 @@ import com.lagradost.cloudstream3.utils.UIHelper.clipboardHelper
 import com.lagradost.cloudstream3.utils.UIHelper.colorFromAttribute
 import com.lagradost.cloudstream3.utils.UIHelper.dismissSafe
 import com.lagradost.cloudstream3.utils.UIHelper.fixSystemBarsPadding
+import com.lagradost.cloudstream3.utils.UIHelper.getStatusBarHeight
 import com.lagradost.cloudstream3.utils.UIHelper.hideKeyboard
 import com.lagradost.cloudstream3.utils.UIHelper.popCurrentPage
 import com.lagradost.cloudstream3.utils.UIHelper.populateChips
@@ -319,7 +321,11 @@ open class ResultFragmentPhone : FullScreenPlayer() {
 
     override fun onResume() {
         afterPluginsLoadedEvent += ::reloadViewModel
-        activity?.setNavigationBarColorCompat(R.attr.primaryBlackBackground)
+        // Make system bars transparent for edge-to-edge display
+        activity?.window?.apply {
+            statusBarColor = android.graphics.Color.TRANSPARENT
+            navigationBarColor = android.graphics.Color.TRANSPARENT
+        }
         super.onResume()
         PanelsChildGestureRegionObserver.Provider.get()
             .addGestureRegionsUpdateListener(gestureRegionsListener)
@@ -337,7 +343,12 @@ open class ResultFragmentPhone : FullScreenPlayer() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        view?.let { fixSystemBarsPadding(it) }
+        view?.let { 
+            binding?.resultTopBar?.let { topBar ->
+                topBar.updatePadding(top = it.context.getStatusBarHeight())
+            }
+            fixSystemBarsPadding(it, padTop = false, padBottom = false) 
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -345,7 +356,11 @@ open class ResultFragmentPhone : FullScreenPlayer() {
         super.onViewCreated(view, savedInstanceState)
 
         // ===== setup =====
-        fixSystemBarsPadding(view)
+        // Only pad the top bar, not the entire view, to keep status bar transparent
+        binding?.resultTopBar?.let { topBar ->
+            topBar.updatePadding(top = view.context.getStatusBarHeight())
+        }
+        fixSystemBarsPadding(view, padTop = false, padBottom = false)
         val storedData = getStoredData() ?: return
         activity?.window?.decorView?.clearFocus()
         activity?.loadCache()

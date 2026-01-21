@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +58,7 @@ import com.lagradost.cloudstream3.utils.SingleSelectionHelper.showBottomDialog
 import com.lagradost.cloudstream3.utils.SingleSelectionHelper.showBottomDialogInstant
 import com.lagradost.cloudstream3.utils.UIHelper.dismissSafe
 import com.lagradost.cloudstream3.utils.UIHelper.fixSystemBarsPadding
+import com.lagradost.cloudstream3.utils.UIHelper.getStatusBarHeight
 import com.lagradost.cloudstream3.utils.UIHelper.hideKeyboard
 import com.lagradost.cloudstream3.utils.UIHelper.navigate
 import com.lagradost.cloudstream3.utils.UIHelper.populateChips
@@ -192,7 +194,11 @@ class ResultFragmentTv : BaseFragment<FragmentResultTvBinding>(
     }
 
     override fun onResume() {
-        activity?.setNavigationBarColorCompat(R.attr.primaryBlackBackground)
+        // Make system bars transparent for edge-to-edge display
+        activity?.window?.apply {
+            statusBarColor = android.graphics.Color.TRANSPARENT
+            navigationBarColor = android.graphics.Color.TRANSPARENT
+        }
         afterPluginsLoadedEvent += ::reloadViewModel
         super.onResume()
     }
@@ -251,7 +257,8 @@ class ResultFragmentTv : BaseFragment<FragmentResultTvBinding>(
     }
 
     override fun fixLayout(view: View) {
-        fixSystemBarsPadding(view, padTop = false)
+        // Keep both status and navigation bars transparent
+        fixSystemBarsPadding(view, padTop = false, padBottom = false)
     }
 
     @SuppressLint("SetTextI18n")
