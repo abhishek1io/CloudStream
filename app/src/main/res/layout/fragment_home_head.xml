@@ -117,7 +117,8 @@
                     android:layout_gravity="center"
                     android:text="@string/home_play"
                     app:cornerRadius="40dp"
-                    app:icon="@drawable/ic_baseline_play_arrow_24" />
+                    app:icon="@drawable/ic_baseline_play_arrow_24"
+                    app:iconPadding="4dp" />
 
         </LinearLayout>
 
