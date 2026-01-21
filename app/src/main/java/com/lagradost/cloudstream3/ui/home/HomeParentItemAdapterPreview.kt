@@ -422,58 +422,59 @@ class HomeParentItemAdapterPreview(
                     )
                 }
 
-                homePreviewInfo.setOnClickListener { view ->
-                    viewModel.click(
-                        LoadClickCallback(0, view, position, item)
-                    )
-                }
+                // Removed: homePreviewInfo and homePreviewBookmark views were removed from layout
+                // homePreviewInfo.setOnClickListener { view ->
+                //     viewModel.click(
+                //         LoadClickCallback(0, view, position, item)
+                //     )
+                // }
 
-                // very ugly code, but I don't care
-                val id = item.getId()
-                val watchType =
-                    DataStoreHelper.getResultWatchState(id)
-                homePreviewBookmark.setText(watchType.stringRes)
-                homePreviewBookmark.setCompoundDrawablesWithIntrinsicBounds(
-                    null,
-                    ContextCompat.getDrawable(
-                        homePreviewBookmark.context,
-                        watchType.iconRes
-                    ),
-                    null,
-                    null
-                )
+                // // very ugly code, but I don't care
+                // val id = item.getId()
+                // val watchType =
+                //     DataStoreHelper.getResultWatchState(id)
+                // homePreviewBookmark.setText(watchType.stringRes)
+                // homePreviewBookmark.setCompoundDrawablesWithIntrinsicBounds(
+                //     null,
+                //     ContextCompat.getDrawable(
+                //         homePreviewBookmark.context,
+                //         watchType.iconRes
+                //     ),
+                //     null,
+                //     null
+                // )
 
-                homePreviewBookmark.setOnClickListener { fab ->
-                    fab.context.getActivity()?.showBottomDialog(
-                        WatchType.entries
-                            .map { fab.context.getString(it.stringRes) }
-                            .toList(),
-                        DataStoreHelper.getResultWatchState(id).ordinal,
-                        fab.context.getString(R.string.action_add_to_bookmarks),
-                        showApply = false,
-                        {}) {
-                        val newValue = WatchType.entries[it]
+                // homePreviewBookmark.setOnClickListener { fab ->
+                //     fab.context.getActivity()?.showBottomDialog(
+                //         WatchType.entries
+                //             .map { fab.context.getString(it.stringRes) }
+                //             .toList(),
+                //         DataStoreHelper.getResultWatchState(id).ordinal,
+                //         fab.context.getString(R.string.action_add_to_bookmarks),
+                //         showApply = false,
+                //         {}) {
+                //         val newValue = WatchType.entries[it]
 
-                        ResultViewModel2().updateWatchStatus(
-                            newValue,
-                            fab.context,
-                            item
-                        ) { statusChanged: Boolean ->
-                            if (!statusChanged) return@updateWatchStatus
+                //         ResultViewModel2().updateWatchStatus(
+                //             newValue,
+                //             fab.context,
+                //             item
+                //         ) { statusChanged: Boolean ->
+                //             if (!statusChanged) return@updateWatchStatus
 
-                            homePreviewBookmark.setCompoundDrawablesWithIntrinsicBounds(
-                                null,
-                                ContextCompat.getDrawable(
-                                    homePreviewBookmark.context,
-                                    newValue.iconRes
-                                ),
-                                null,
-                                null
-                            )
-                            homePreviewBookmark.setText(newValue.stringRes)
-                        }
-                    }
-                }
+                //             homePreviewBookmark.setCompoundDrawablesWithIntrinsicBounds(
+                //                 null,
+                //                 ContextCompat.getDrawable(
+                //                     homePreviewBookmark.context,
+                //                     newValue.iconRes
+                //                 ),
+                //                 null,
+                //                 null
+                //             )
+                //             homePreviewBookmark.setText(newValue.stringRes)
+                //         }
+                //     }
+                // }
             }
         }
 
@@ -638,17 +639,10 @@ class HomeParentItemAdapterPreview(
             }
 
             (binding as? FragmentHomeHeadBinding)?.apply {
-                homeSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String): Boolean {
-                        viewModel.queryTextSubmit(query)
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String): Boolean {
-                        viewModel.queryTextChange(newText)
-                        return true
-                    }
-                })
+                // Changed from SearchView to ImageView - click navigates to search
+                homeSearch.setOnClickListener {
+                    viewModel.queryTextSubmit("")
+                }
             }
         }
 

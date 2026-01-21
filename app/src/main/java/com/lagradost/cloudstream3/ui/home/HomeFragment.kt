@@ -655,6 +655,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(
             homeMasterRecycler.adapter = homeMasterAdapter
 
             homeApiFab.isVisible = isLayout(PHONE)
+            homeSearchFab.isVisible = isLayout(PHONE)
+            homeSearchFab.setOnClickListener {
+                activity?.navigate(R.id.navigation_search)
+            }
 
             homePreviewReloadProvider.setOnClickListener {
                 homeViewModel.loadAndCancel(

@@ -6,18 +6,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
+    <FrameLayout
         android:id="@+id/home_child_more_info"
-        style="@style/WatchHeaderText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:padding="12dp"
-        tools:text="@string/continue_watching"
-        app:drawableRightCompat="@drawable/ic_baseline_arrow_forward_24"
-        app:drawableTint="?attr/white"
         android:background="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/home_more_info"/>
+        android:padding="12dp"
+        android:contentDescription="@string/home_more_info">
+
+        <TextView
+            android:id="@+id/home_child_title"
+            style="@style/WatchHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            tools:text="@string/continue_watching" />
+
+        <ImageView
+            android:id="@+id/home_child_arrow"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end|center_vertical"
+            android:background="@drawable/pill_button_bg"
+            android:padding="4dp"
+            android:src="@drawable/ic_baseline_arrow_forward_24"
+            app:tint="?attr/white"
+            android:contentDescription="@string/home_more_info" />
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
             android:nextFocusUp="@id/home_child_more_info"

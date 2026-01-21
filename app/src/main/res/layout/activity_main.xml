@@ -38,7 +38,7 @@
             android:id="@+id/nav_view"
             android:layout_height="@dimen/nav_view_height"
             android:layout_width="0dp"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="labeled"
             android:background="?attr/primaryGrayBackground"
 
             app:itemIconTint="@color/item_select_color"
