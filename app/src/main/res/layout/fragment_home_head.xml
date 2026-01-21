@@ -79,7 +79,7 @@
                 android:padding="8dp"
                 android:src="@drawable/search_icon"
                 app:tint="@color/white"
-                android:background="@drawable/pill_button_bg"
+                android:background="@drawable/pill_button_border_bg"
                 android:contentDescription="@string/title_search"
                 android:nextFocusLeft="@id/home_head_profile_padding" />
         </LinearLayout>
@@ -116,6 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/home_play"
+                    app:cornerRadius="40dp"
                     app:icon="@drawable/ic_baseline_play_arrow_24" />
 
         </LinearLayout>

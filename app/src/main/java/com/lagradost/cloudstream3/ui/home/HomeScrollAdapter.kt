@@ -58,6 +58,9 @@ class HomeScrollAdapter(
 
         when (binding) {
             is HomeScrollViewBinding -> {
+                binding.root.setOnClickListener { view ->
+                    callback.invoke(view, position, item)
+                }
                 binding.homeScrollPreview.loadImage(posterUrl)
                 binding.homeScrollPreviewTags.apply {
                     text = item.tags?.joinToString(" • ") ?: ""
