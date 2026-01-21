@@ -6,7 +6,7 @@
     android:id="@+id/settings_top_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/primaryGrayBackground"
+    android:background="?attr/primaryBlackBackground"
     android:orientation="vertical">
 
     <include layout="@layout/standard_toolbar" />
@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/primaryBlackBackground"
+        android:paddingHorizontal="8dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:targetApi="n" />
         <!-- list_container is actually defined by the support library, but lint doesn't know that it exists before API 24. -->

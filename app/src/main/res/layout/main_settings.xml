@@ -1,158 +1,401 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/primaryBlackBackground">
 
-    <ScrollView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settings_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/settings_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/title_settings"
+            app:titleTextColor="?attr/textColor"
+            app:navigationIconTint="?attr/textColor" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="24dp">
 
-            <LinearLayout
+            <!-- Profile Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/settings_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="20dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="?attr/primaryGrayBackground"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp"
                 tools:visibility="visible">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="25dp">
-
-                    <ImageView
-                        android:id="@+id/settings_profile_pic"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:foreground="@drawable/rounded_outline"
-                        tools:src="@drawable/profile_bg_orange"
-                        android:contentDescription="@string/account"/>
-
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/settings_profile_text"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColor="?attr/textColor"
-                    android:textSize="18sp"
-                    android:textStyle="normal"
-                    tools:text="Quick Brown Fox" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-            <TextView
-                android:id="@+id/settings_general"
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/settings_profile_pic"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:contentDescription="@string/account"
+                        android:scaleType="centerCrop"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView"
+                        app:strokeColor="?attr/colorPrimary"
+                        app:strokeWidth="2dp"
+                        tools:src="@drawable/profile_bg_orange" />
 
-                style="@style/SettingsItem"
-                android:nextFocusDown="@id/settings_player"
-                android:text="@string/category_general" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/settings_player"
-                style="@style/SettingsItem"
+                        <TextView
+                            android:id="@+id/settings_profile_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textColor="?attr/textColor"
+                            tools:text="Quick Brown Fox" />
 
-                android:nextFocusUp="@id/settings_general"
-                android:nextFocusDown="@id/settings_providers"
-                android:text="@string/category_player" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/account"
+                            android:textAppearance="?attr/textAppearanceBodySmall"
+                            android:textColor="?attr/grayTextColor" />
 
-            <TextView
-                android:id="@+id/settings_providers"
-                style="@style/SettingsItem"
+                    </LinearLayout>
 
-                android:nextFocusUp="@id/settings_player"
-                android:nextFocusDown="@id/settings_ui"
-                android:text="@string/category_providers" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/settings_ui"
-                style="@style/SettingsItem"
+            </com.google.android.material.card.MaterialCardView>
 
-                android:nextFocusUp="@id/settings_providers"
-                android:nextFocusDown="@id/settings_updates"
-                android:text="@string/category_ui" />
+            <!-- Settings Categories -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardBackgroundColor="?attr/primaryGrayBackground"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
 
-            <TextView
-                android:id="@+id/settings_updates"
-                style="@style/SettingsItem"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:divider="@drawable/settings_divider"
+                    android:showDividers="middle">
 
-                android:nextFocusUp="@id/settings_ui"
-                android:nextFocusDown="@id/settings_credits"
-                android:text="@string/category_updates" />
+                    <!-- General -->
+                    <LinearLayout
+                        android:id="@+id/settings_general"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusDown="@id/settings_player">
 
-            <TextView
-                android:id="@+id/settings_credits"
-                style="@style/SettingsItem"
-                android:nextFocusUp="@id/settings_updates"
-                android:text="@string/category_account" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_tune_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
 
-            <TextView
-                android:id="@+id/settings_extensions"
-                style="@style/SettingsItem"
-                android:nextFocusUp="@id/settings_credits"
-                android:text="@string/extensions" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_general"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
 
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- Player -->
+                    <LinearLayout
+                        android:id="@+id/settings_player"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_general"
+                        android:nextFocusDown="@id/settings_providers">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_ondemand_video_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_player"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- Providers -->
+                    <LinearLayout
+                        android:id="@+id/settings_providers"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_player"
+                        android:nextFocusDown="@id/settings_ui">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_dns_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_providers"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- UI -->
+                    <LinearLayout
+                        android:id="@+id/settings_ui"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_providers"
+                        android:nextFocusDown="@id/settings_updates">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_color_lens_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_ui"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- Updates -->
+                    <LinearLayout
+                        android:id="@+id/settings_updates"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_ui"
+                        android:nextFocusDown="@id/settings_credits">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_system_update_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_updates"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- Account -->
+                    <LinearLayout
+                        android:id="@+id/settings_credits"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_updates"
+                        android:nextFocusDown="@id/settings_extensions">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_outline_account_circle_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/category_account"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                    <!-- Extensions -->
+                    <LinearLayout
+                        android:id="@+id/settings_extensions"
+                        style="@style/SettingsItemMD3"
+                        android:nextFocusUp="@id/settings_credits">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_extension_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:text="@string/extensions"
+                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textColor="?attr/textColor" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                            android:contentDescription="@null"
+                            app:tint="?attr/grayTextColor" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Version Info -->
             <LinearLayout
                 android:id="@+id/app_version_info"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/app_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="?attr/textColor"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/grayTextColor"
                     tools:text="0.0.0" />
 
                 <TextView
                     android:id="@+id/delimiter0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
                     android:text="•"
-                    android:textColor="?attr/textColor" />
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/grayTextColor" />
 
                 <TextView
                     android:id="@+id/commit_hash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:text="@string/commit_hash"
-                    android:textColor="?attr/textColor" />
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/grayTextColor" />
 
                 <TextView
                     android:id="@+id/delimiter1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
                     android:text="•"
-                    android:textColor="?attr/textColor" />
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/grayTextColor" />
 
                 <TextView
                     android:id="@+id/build_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:textColor="?attr/textColor"
-                    tools:text="21/03/2024 09:02 pm"/>
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="?attr/grayTextColor"
+                    tools:text="21/03/2024 09:02 pm" />
+
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

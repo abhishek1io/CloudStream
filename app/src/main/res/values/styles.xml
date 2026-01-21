@@ -657,6 +657,19 @@
         <item name="drawableEndCompat">@drawable/ic_baseline_keyboard_arrow_right_24</item>
     </style>
 
+    <!-- MD3 styled settings item for LinearLayout-based items -->
+    <style name="SettingsItemMD3">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <style name="WatchHeaderText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
