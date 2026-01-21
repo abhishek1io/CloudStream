@@ -48,8 +48,7 @@ class SearchAdapter(
 
     var hasNext: Boolean = false
 
-    private val coverRatio = if(isHorizontal) 1.8 else 0.68
-
+    private val coverRatio = if (isHorizontal) 1.777 else 0.666
     private val coverHeight: Int get() = (resView.itemWidth / coverRatio).roundToInt()
 
     override fun onCreateContent(parent: ViewGroup): ViewHolderState<Any> {

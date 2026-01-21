@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="12dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp"
         android:contentDescription="@string/home_more_info">
 
         <TextView
@@ -36,7 +37,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:nextFocusUp="@id/home_child_more_info"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="8dp"
             android:clipToPadding="false"
             android:descendantFocusability="afterDescendants"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
